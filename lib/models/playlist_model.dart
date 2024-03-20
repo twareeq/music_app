@@ -15,20 +15,17 @@ class Playlist {
     Playlist(
       category: 'Testimonies',
       songs: SongModel.songs,
-      imageUrl:
-          'assets/images/cover.jpeg',
+      imageUrl: 'assets/images/cover.jpeg',
     ),
     Playlist(
       category: 'Sermons',
       songs: SongModel.songs,
-      imageUrl:
-          'assets/images/hiphop.jpeg',
+      imageUrl: 'assets/images/hiphop.jpeg',
     ),
     Playlist(
       category: 'Songs',
       songs: SongModel.songs,
-      imageUrl:
-          'assets/images/gospel.jpeg',
+      imageUrl: 'assets/images/gospel.jpeg',
     )
   ];
 }

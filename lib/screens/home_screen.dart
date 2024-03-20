@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:music_app/controller/libraryTabController.dart';
 import 'package:music_app/models/playlist_model.dart';
 
+import '../mediasModule/models/mediadata_model.dart';
 import '../models/song_model.dart';
 import '../widgets/widgets.dart';
 
@@ -70,12 +71,13 @@ class HomeScreen extends StatelessWidget {
 
 class _RecentlyAdded extends StatelessWidget {
   const _RecentlyAdded({
-    required this.songs,
+    required this.mediaList,
     required this.currentSong,
     required this.audioPlayer,
   });
 
-  final List<SongModel> songs;
+  // final List<SongModel> songs;
+  final List<MediaModel> mediaList;
   final int currentSong;
   final AudioPlayer audioPlayer;
 
@@ -98,10 +100,10 @@ class _RecentlyAdded extends StatelessWidget {
             height: MediaQuery.of(context).size.height * 0.27,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: songs.length,
+              itemCount: mediaList.length,
               itemBuilder: (context, index) {
                 return SongCard(
-                  song: songs[index],
+                  media: mediaList[index],
                   currentSong: currentSong,
                   audioPlayer: audioPlayer,
                 );

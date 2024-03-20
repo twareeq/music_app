@@ -1,21 +1,21 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:audioplayers/audioplayers.dart';
 
-
+import '../mediasModule/models/mediadata_model.dart';
 import '../models/song_model.dart';
 
+// ignore: must_be_immutable
 class SongPlayingScreen extends StatefulWidget {
   SongPlayingScreen(
-      {required this.song,
+      {required this.media,
       required this.currentSong,
       required this.audioPlayer,
-        required this.onTap,
+      required this.onTap,
       super.key});
 
-  SongModel song;
+  MediaModel media;
   AudioPlayer audioPlayer;
   int currentSong;
   VoidCallback onTap;
@@ -32,7 +32,8 @@ class _SongPlayingScreenState extends State<SongPlayingScreen> {
   @override
   void initState() {
     // TODO: implement initState
-    widget.audioPlayer.play(AssetSource(songs[widget.currentSong % songs.length].url));
+    widget.audioPlayer
+        .play(AssetSource(songs[widget.currentSong % songs.length].url));
     setState(() {});
     super.initState();
   }
@@ -90,7 +91,7 @@ class _SongPlayingScreenState extends State<SongPlayingScreen> {
                   stream: widget.audioPlayer.onPositionChanged,
                   builder: (context, snapshot) => ProgressBar(
                     progress: snapshot.data ?? const Duration(seconds: 0),
-                    buffered: Duration(milliseconds: 2000),
+                    buffered: const Duration(milliseconds: 2000),
                     total: maxDuration,
                     onSeek: (duration) {
                       widget.audioPlayer.seek(duration);

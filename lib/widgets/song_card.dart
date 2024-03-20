@@ -3,17 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:music_app/screens/song_playing_screen.dart';
 
+import '../mediasModule/models/mediadata_model.dart';
 import '../models/song_model.dart';
 
 class SongCard extends StatelessWidget {
   const SongCard({
     super.key,
-    required this.song,
+    required this.media,
     required this.currentSong,
     required this.audioPlayer,
   });
 
-  final SongModel song;
+  final MediaModel media;
   final int currentSong;
   final AudioPlayer audioPlayer;
 
@@ -22,7 +23,12 @@ class SongCard extends StatelessWidget {
     return InkWell(
       onTap: () {
         //Get.toNamed('/song', arguments: song);
-        Get.to(SongPlayingScreen(song: song, currentSong: currentSong, audioPlayer: audioPlayer, onTap: () {  },));
+        Get.to(SongPlayingScreen(
+          media: media,
+          currentSong: currentSong,
+          audioPlayer: audioPlayer,
+          onTap: () {},
+        ));
       },
       child: Container(
         margin: const EdgeInsets.only(right: 10.0),
@@ -34,7 +40,7 @@ class SongCard extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15.0),
                 image: DecorationImage(
-                    image: AssetImage(song.coverUrl), fit: BoxFit.cover),
+                    image: AssetImage(media.imageUrl!), fit: BoxFit.cover),
               ),
             ),
             Container(
@@ -52,12 +58,13 @@ class SongCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        song.title,
+                        media.title!,
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            color: Colors.deepPurple, fontWeight: FontWeight.bold),
+                            color: Colors.deepPurple,
+                            fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        song.category,
+                        media.fileUrl!,
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             color: Colors.white, fontWeight: FontWeight.bold),
                       ),
