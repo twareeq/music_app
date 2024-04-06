@@ -43,7 +43,7 @@ class _SongLibraryTabScreenState extends State<SongLibraryTabScreen> {
     final mediaPlayerModel = Provider.of<MusicPlayerState>(context);
 
     return FutureBuilder(
-        future: mediaPlayerModel.songListState.gettingSongs(),
+        future: context.watch<MusicPlayerState>().songListState.gettingSongs(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             return SingleChildScrollView(

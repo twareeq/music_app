@@ -12,6 +12,10 @@ class MusicPlayerScreenTest extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mediaPlayerModel = Provider.of<MusicPlayerState>(context);
+    context.watch<MusicPlayerState>().audioPlayer.onDurationChanged.listen((value) => mediaPlayerModel.onDurationChanged(value));
+    context.watch<MusicPlayerState>().audioPlayer.onPositionChanged.listen((value) => mediaPlayerModel.onPositionChanged(value));
+
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -68,11 +72,8 @@ class MusicPlayerScreenTest extends StatelessWidget {
                         .toDouble(),
                     onChanged: ((value) async {
                       final position = Duration(seconds: value.toInt());
-                      mediaPlayerModel.onPositionChanged();
-                      await context
-                          .watch<MusicPlayerState>()
-                          .audioPlayer
-                          .seek(position);
+                      mediaPlayerModel.onPositionChanged(position);
+                      await mediaPlayerModel.audioPlayer.seek(position);
                     })),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -80,12 +81,11 @@ class MusicPlayerScreenTest extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        context.watch<MusicPlayerState>().formatedDuration(),
+                        context.watch<MusicPlayerState>().formatTime(mediaPlayerModel.currentPosition),
                       ),
                       Text(
-                        context
-                            .watch<MusicPlayerState>()
-                            .formatTime(mediaPlayerModel.currentPosition),
+                        context.watch<MusicPlayerState>().formatedDuration(),
+
                       ),
                     ],
                   ),

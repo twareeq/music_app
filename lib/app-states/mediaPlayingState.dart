@@ -6,6 +6,7 @@ import '../mediasModule/models/mediadata_model.dart';
 
 class MusicPlayerState extends ChangeNotifier {
   final SongListState songListState;
+
   MusicPlayerState({required this.songListState}) {
     songListState.addListener(_updateSongList);
   }
@@ -21,13 +22,17 @@ class MusicPlayerState extends ChangeNotifier {
   void _updateSongList() {
     // React to the child model's change.
     // For example, by notifying listeners of this (parent) model.
-    notifyListeners();
   }
+
+
 
   @override
   void dispose() {
     // Important: Remove the listener to prevent memory leaks
     songListState.removeListener(_updateSongList);
+    // audioPlayer.onPlayerStateChanged.listen(_onPlayerStateChanged).cancel();
+    audioPlayer.onDurationChanged.listen(onDurationChanged).cancel();
+    audioPlayer.onPositionChanged.listen(onPositionChanged).cancel();
     super.dispose();
   }
 
@@ -36,16 +41,13 @@ class MusicPlayerState extends ChangeNotifier {
     notifyListeners();
   }
 
-
-
-
-  void onDurationChanged() {
-    audioPlayer.onDurationChanged.listen((value) => value = _duration);
+  void onDurationChanged(Duration newDuration) {
+    _duration = newDuration;
     notifyListeners();
   }
 
-  void onPositionChanged() {
-    audioPlayer.onPositionChanged.listen((value) => value = _position);
+  void onPositionChanged(Duration newPosition) {
+    _position = newPosition;
     notifyListeners();
   }
 
