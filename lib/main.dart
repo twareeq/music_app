@@ -24,7 +24,10 @@ class MyApp extends StatelessWidget {
           displayColor: Colors.white
         )
       ),
-      home: const PageNavController(),
+      home: const PageNavController(
+        mediasList: [],
+        currentIndex: 0,
+      ),
       getPages: [
         GetPage(name: '/', page: () => const HomeScreen()),
         GetPage(name: '/song', page: () => const SongScreen()),

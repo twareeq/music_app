@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:music_app/screens/libraryTab.dart';
+import 'package:music_app/library_screens/sermon_library_tab.dart';
+import 'package:music_app/library_screens/song_library_tab.dart';
+import 'package:music_app/library_screens/testmony_library_tab.dart';
 
 class LibraryBarController extends StatefulWidget {
   const LibraryBarController({super.key});
@@ -69,17 +71,13 @@ class _LibraryBarControllerState extends State<LibraryBarController>
               // INSIDE TABS
               Expanded(
                   child: TabBarView(
-                    controller: controllerBar,
-                    children: const [
-                      LibraryTabScreen(),
-                      Center(
-                        child: Text('Sermons'),
-                      ),
-                      Center(
-                        child: Text('Testimonies'),
-                      ),
-                    ],
-                  ))
+                controller: controllerBar,
+                children: const [
+                  SongLibraryTabScreen(),
+                  SermonLibraryTab(),
+                  TestmonyLibraryTab(),
+                ],
+              ))
             ],
           ),
         ),

@@ -3,6 +3,7 @@ class MediaModel {
   String? title;
   String? imageUrl;
   String? fileUrl;
+  String? categoryName;
   int? categoryId;
   int? userId;
   String? createdAt;
@@ -13,6 +14,7 @@ class MediaModel {
       this.title,
       this.imageUrl,
       this.fileUrl,
+      this.categoryName,
       this.categoryId,
       this.userId,
       this.createdAt,
@@ -27,6 +29,11 @@ class MediaModel {
     userId = json['userId'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
+
+    if (json.containsKey('Category')) {
+      final categoryData = json['Category'] as Map<String, dynamic>;
+      categoryName = categoryData['name'];
+    }
   }
 
   static List<MediaModel> mediaFilesFromSnap(List mediaSnapshot) {
@@ -37,17 +44,4 @@ class MediaModel {
       return MediaModel.fromJson(jsonData);
     }).toList();
   }
-
-  // Map<String, dynamic> toJson() {
-  //   final Map<String, dynamic> data = {};
-  //   data['id'] = id;
-  //   data['title'] = title;
-  //   data['imageUrl'] = imageUrl;
-  //   data['fileUrl'] = fileUrl;
-  //   data['categoryId'] = categoryId;
-  //   data['userId'] = userId;
-  //   data['createdAt'] = createdAt;
-  //   data['updatedAt'] = updatedAt;
-  //   return data;
-  // }
 }

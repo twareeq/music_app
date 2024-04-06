@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:music_app/controller/libraryTabController.dart';
 import 'package:music_app/models/playlist_model.dart';
+import 'package:music_app/screens/discovered_media.dart';
 
 import '../mediasModule/models/mediadata_model.dart';
-import '../models/song_model.dart';
 import '../widgets/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -124,22 +124,28 @@ class _DiscoverMusic extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: TextField(
+        cursorHeight: 15,
+        style: const TextStyle(color: Colors.grey),
+        onTap: () {
+          Get.to(() => const DiscoveredMedia());
+        },
         decoration: InputDecoration(
-            isDense: true,
-            filled: true,
-            fillColor: Colors.white,
-            hintText: 'Search',
-            hintStyle: Theme.of(context)
-                .textTheme
-                .bodyMedium
-                ?.copyWith(color: Colors.black54),
-            prefixIcon: Icon(
-              Icons.search,
-              color: Colors.grey.shade400,
-            ),
-            border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15.0),
-                borderSide: BorderSide.none)),
+          isDense: true,
+          filled: true,
+          fillColor: Colors.white,
+          hintText: 'Search',
+          hintStyle: Theme.of(context)
+              .textTheme
+              .bodyMedium
+              ?.copyWith(color: Colors.black54),
+          prefixIcon: Icon(
+            Icons.search,
+            color: Colors.grey.shade400,
+          ),
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15.0),
+              borderSide: BorderSide.none),
+        ),
       ),
     );
   }
@@ -173,29 +179,6 @@ class _CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(56.0);
 }
 
-class _CustomNavBar extends StatelessWidget {
-  const _CustomNavBar();
-
-  @override
-  Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      type: BottomNavigationBarType.fixed,
-      backgroundColor: Colors.deepPurple.shade800,
-      unselectedItemColor: Colors.white,
-      selectedItemColor: Colors.white,
-      showUnselectedLabels: false,
-      showSelectedLabels: false,
-      items: const [
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.library_music), label: 'Favourites'),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.play_circle_outline), label: 'Play'),
-      ],
-    );
-  }
-}
-
 // GRIDVIEW
 class MyGridView extends StatelessWidget {
   const MyGridView({super.key});
@@ -214,7 +197,7 @@ class MyGridView extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              Get.to(const LibraryBarController());
+              Get.to(() => const LibraryBarController());
             },
             child: Container(
               decoration: BoxDecoration(
