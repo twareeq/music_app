@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:music_app/screens/media_playing_screen.dart';
+import 'package:music_app/app-states/songListState.dart';
+import 'package:provider/provider.dart';
 
 import '../apimodule/api_service.dart';
+import '../app-states/mediaPlayingState.dart';
 import '../mediasModule/models/mediadata_model.dart';
+import '../screens/musicPlayingScreenTest.dart';
 import '../widgets/medias_scroll_view.dart';
 
 class SongLibraryTabScreen extends StatefulWidget {
@@ -15,9 +18,7 @@ class SongLibraryTabScreen extends StatefulWidget {
 }
 
 class _SongLibraryTabScreenState extends State<SongLibraryTabScreen> {
-  // List<SongModel> songs = SongModel.songs;
   List<MediaModel> songsList = [];
-  final audioPlayer = AudioPlayer();
 
   @override
   void initState() {
@@ -31,18 +32,18 @@ class _SongLibraryTabScreenState extends State<SongLibraryTabScreen> {
 
   @override
   void didChangeDependencies() {
-    gettingSongs();
     super.didChangeDependencies();
   }
 
-  Future<void> gettingSongs() async {
-    songsList = await APIHandler.getMediasForSongs();
-  }
+
 
   @override
   Widget build(BuildContext context) {
+
+    final mediaPlayerModel = Provider.of<MusicPlayerState>(context);
+
     return FutureBuilder(
-        future: gettingSongs(),
+        future: mediaPlayerModel.songListState.gettingSongs(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             return SingleChildScrollView(
@@ -51,21 +52,19 @@ class _SongLibraryTabScreenState extends State<SongLibraryTabScreen> {
                   ListView.builder(
                     shrinkWrap: true,
                     padding: const EdgeInsets.symmetric(horizontal: 2),
-                    itemCount: songsList.length,
+                    itemCount: context.read<MusicPlayerState>().songListState.mediasList.length,
                     itemBuilder: (context, index) {
-                      var songObj = songsList[index];
+                      var songObj = context.read<MusicPlayerState>().songListState.mediasList[index];
+                      print(index);
 
                       return MediasListView(
                         mediaObj: songObj,
-                        mediaList: songsList,
-                        audioPlayer: audioPlayer,
+                        mediaList: context.read<MusicPlayerState>().songListState.mediasList,
+                        audioPlayer: mediaPlayerModel.audioPlayer,
                         currentIndex: index,
                         onTapped: () {
-                          Get.to(() => MediaPlayingScreen(
-                                mediasList: songsList,
-                                currentIndex: index,
-                                audioPlayer: audioPlayer,
-                              ));
+                          mediaPlayerModel.currentIndex = index;
+                          Get.to(() => MusicPlayerScreenTest());
                         },
                       );
                     },

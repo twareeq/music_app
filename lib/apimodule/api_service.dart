@@ -4,22 +4,22 @@ import 'package:music_app/mediasModule/models/mediadata_model.dart';
 
 class APIHandler {
   static Future<List<MediaModel>> getAllMedias() async {
-    const url = 'http://localhost:3000/media';
+    const url = 'http://10.0.2.2:3000/media';
     return _fetchMedias(url);
   }
 
   static Future<List<MediaModel>> getMediasForSongs() async {
-    const url = 'http://localhost:3000/media/category/1';
+    const url = 'http://10.0.2.2:3000/media/category/1';
     return _fetchMedias(url);
   }
 
   static Future<List<MediaModel>> getMediasForSermons() async {
-    const url = 'http://localhost:3000/media/category/2';
+    const url = 'http://10.0.2.2:3000/media/category/2';
     return _fetchMedias(url);
   }
 
   static Future<List<MediaModel>> getMediasForTestmonies() async {
-    const url = 'http://localhost:3000/media/category/3';
+    const url = 'http://10.0.2.2:3000/media/category/3';
     return _fetchMedias(url);
   }
 
