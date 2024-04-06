@@ -16,5 +16,6 @@ class SongListState extends ChangeNotifier {
 
   Future<void> gettingSongs() async {
     _mediasList = await APIHandler.getMediasForSongs();
+    notifyListeners();
   }
 }
