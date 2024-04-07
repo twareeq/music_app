@@ -1,23 +1,18 @@
 // import 'package:flutter/material.dart';
 // import 'package:music_app/app-states/smallMusicPlayerState.dart';
+// import 'package:provider/provider.dart';
 // import 'package:sliding_up_panel/sliding_up_panel.dart';
 //
+// import 'mediaPlayingState.dart';
+//
 // class MusicPlayerScreen extends StatelessWidget {
-//   MusicPlayerScreen(this.imageUrl, this.title, this.categoryName);
-//
-//   final String imageUrl;
-//   final String title;
-//   final String categoryName;
-//   final Widget backgroundFilter;
-//   final Widget mySlider;
-//   final String position;
-//   final String duration;
-//   final VoidCallbackAction prevPlay;
-//   final VoidCallback nextPlay;
-//
 //
 //   @override
 //   Widget build(BuildContext context) {
+//     final mediaPlayerModel = Provider.of<MusicPlayerState>(context);
+//     context.watch<MusicPlayerState>().audioPlayer.onDurationChanged.listen((value) => mediaPlayerModel.onDurationChanged(value));
+//     context.watch<MusicPlayerState>().audioPlayer.onPositionChanged.listen((value) => mediaPlayerModel.onPositionChanged(value));
+//
 //     return SlidingUpPanel(
 //         panel: SmallMusicPlayer(), // Small music player UI
 //         minHeight: 64,
@@ -26,7 +21,7 @@
 //           fit: StackFit.expand,
 //           children: [
 //             Image.network(
-//               imageUrl,
+//               '',
 //               fit: BoxFit.cover,
 //             ),
 //             backgroundFilter,
@@ -40,7 +35,7 @@
 //                 crossAxisAlignment: CrossAxisAlignment.start,
 //                 children: [
 //                   Text(
-//                     title,
+//                     '',
 //                     style: Theme.of(context).textTheme.headlineSmall!.copyWith(
 //                       color: Colors.white,
 //                       fontWeight: FontWeight.bold,
@@ -48,7 +43,7 @@
 //                   ),
 //                   const SizedBox(height: 10),
 //                   Text(
-//                     categoryName,
+//                     '',
 //                     maxLines: 2,
 //                     style: Theme.of(context)
 //                         .textTheme
@@ -64,10 +59,10 @@
 //                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
 //                       children: [
 //                         Text(
-//                           position,
+//                           '',
 //                         ),
 //                         Text(
-//                           duration,
+//                           '',
 //                         ),
 //                       ],
 //                     ),
@@ -78,7 +73,7 @@
 //                     children: [
 //                       IconButton(
 //                         onPressed: () {
-//                           prevPlay
+//
 //                         }, // Implement Previous Song functionality
 //                         icon: const Icon(
 //                           Icons.skip_previous,

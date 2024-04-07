@@ -1,12 +1,10 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:music_app/app-states/mediaPlayingState.dart';
 import 'package:music_app/controller/navBarController.dart';
 import 'package:music_app/screens/home_screen.dart';
+import 'package:music_app/screens/musicPlayingScreenTest.dart';
 import 'package:music_app/screens/playlist_screen.dart';
-import 'package:music_app/screens/song_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'app-states/songListState.dart';
@@ -18,7 +16,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
+  MyApp({Key? key}) : super(key: key);
 
   final SongListState songListState = SongListState();
 
@@ -27,7 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => SongListState()),
+        ChangeNotifierProvider.value(value: songListState), // Use value constructor to provide existing instance
         ChangeNotifierProvider(create: (_) => MusicPlayerState(songListState: songListState)),
       ],
       child: GetMaterialApp(
@@ -39,17 +37,14 @@ class MyApp extends StatelessWidget {
                 displayColor: Colors.white
             )
         ),
-        home: const PageNavController(
-          mediasList: [],
-          currentIndex: 0,
-        ),
+        home: const PageNavController(),
         getPages: [
           GetPage(name: '/', page: () => const HomeScreen()),
-          GetPage(name: '/song', page: () => const SongScreen()),
+          GetPage(name: '/playerPage', page: () => MusicPlayerScreenTest()),
           GetPage(name: '/playlist', page: () => const PlaylistScreen()),
         ],
       ),
     );
-
   }
 }
+

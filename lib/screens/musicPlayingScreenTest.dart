@@ -27,7 +27,7 @@ class MusicPlayerScreenTest extends StatelessWidget {
         fit: StackFit.expand,
         children: [
           Image.network(
-            '${context.watch<MusicPlayerState>().songListState.mediasList[mediaPlayerModel.currentIndex].imageUrl}',
+            '${context.watch<MusicPlayerState>().songListState.mediasList[mediaPlayerModel.songListState.currentMedia].imageUrl}',
             fit: BoxFit.cover,
           ),
           const _BackgroundFilter(),
@@ -41,7 +41,7 @@ class MusicPlayerScreenTest extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '${context.watch<MusicPlayerState>().songListState.mediasList[mediaPlayerModel.currentIndex].title}',
+                  '${context.watch<MusicPlayerState>().songListState.mediasList[mediaPlayerModel.songListState.currentMedia].title}',
                   style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -49,7 +49,7 @@ class MusicPlayerScreenTest extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  '${context.watch<MusicPlayerState>().songListState.mediasList[mediaPlayerModel.currentIndex].categoryName}',
+                  '${context.watch<MusicPlayerState>().songListState.mediasList[mediaPlayerModel.songListState.currentMedia].categoryName}',
                   maxLines: 2,
                   style: Theme.of(context)
                       .textTheme
@@ -113,10 +113,7 @@ class MusicPlayerScreenTest extends StatelessWidget {
                         size: 45,
                       ),
                       onPressed: () async {
-                        PageNavController(
-                          mediasList: mediaPlayerModel.songListState.mediasList,
-                          currentIndex: mediaPlayerModel.currentIndex,
-                        );
+                        const PageNavController();
                         if (mediaPlayerModel.isPlaying) {
                           await mediaPlayerModel.audioPlayer.pause();
                         } else {

@@ -1,80 +1,58 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:audioplayers/audioplayers.dart';
 import 'package:music_app/app-states/songListState.dart';
 import 'package:provider/provider.dart';
 
-import '../apimodule/api_service.dart';
 import '../app-states/mediaPlayingState.dart';
-import '../mediasModule/models/mediadata_model.dart';
 import '../screens/musicPlayingScreenTest.dart';
 import '../widgets/medias_scroll_view.dart';
 
-class SongLibraryTabScreen extends StatefulWidget {
-  const SongLibraryTabScreen({super.key});
-
-  @override
-  State<SongLibraryTabScreen> createState() => _SongLibraryTabScreenState();
-}
-
-class _SongLibraryTabScreenState extends State<SongLibraryTabScreen> {
-  List<MediaModel> songsList = [];
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-  }
-
-
-
+class SongLibraryTabScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     final mediaPlayerModel = Provider.of<MusicPlayerState>(context);
 
-    return FutureBuilder(
-        future: context.watch<MusicPlayerState>().songListState.gettingSongs(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return SingleChildScrollView(
-              child: Column(
-                children: [
-                  ListView.builder(
-                    shrinkWrap: true,
-                    padding: const EdgeInsets.symmetric(horizontal: 2),
-                    itemCount: context.read<MusicPlayerState>().songListState.mediasList.length,
-                    itemBuilder: (context, index) {
-                      var songObj = context.read<MusicPlayerState>().songListState.mediasList[index];
-                      print(index);
+    return Consumer<SongListState>(
+      builder: (context, songListState, _) {
+        // Check if mediasList is empty or data is not fetched yet
+        if (songListState.mediasList.isEmpty) {
+          // Fetching songs when the mediasList is empty
+          // This ensures that songs are fetched only once, not on every rebuild
+          // If songs are already fetched, this won't do anything
+          songListState.gettingSongs();
 
-                      return MediasListView(
-                        mediaObj: songObj,
-                        mediaList: context.read<MusicPlayerState>().songListState.mediasList,
-                        audioPlayer: mediaPlayerModel.audioPlayer,
-                        currentIndex: index,
-                        onTapped: () {
-                          mediaPlayerModel.currentIndex = index;
-                          Get.to(() => MusicPlayerScreenTest());
-                        },
-                      );
-                    },
-                  )
-                ],
-              ),
-            );
-          } else {
-            return const CircularProgressIndicator();
-          }
-        });
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        } else {
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                ListView.builder(
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.symmetric(horizontal: 2),
+                  itemCount: songListState.mediasList.length,
+                  itemBuilder: (context, index) {
+                    var songObj = songListState.mediasList[index];
+                    print(index); // Check if itemBuilder is called
+
+                    return MediasListView(
+                      mediaObj: songObj,
+                      mediaList: songListState.mediasList,
+                      audioPlayer: mediaPlayerModel.audioPlayer,
+                      currentIndex: index,
+                      onTapped: () {
+                        context.read<MusicPlayerState>().songListState.currentMedia = index;
+                        Get.to(() => MusicPlayerScreenTest());
+                      },
+                    );
+                  },
+                )
+              ],
+            ),
+          );
+        }
+      },
+    );
   }
 }

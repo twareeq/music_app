@@ -188,10 +188,7 @@ class _MediaPlayingScreenState extends State<MediaPlayingScreen> {
                         size: 45,
                       ),
                       onPressed: () async {
-                        PageNavController(
-                          mediasList: widget.mediasList,
-                          currentIndex: widget.currentIndex,
-                        );
+                        const PageNavController();
                         if (isPlaying) {
                           await widget.audioPlayer.pause();
                         } else {
