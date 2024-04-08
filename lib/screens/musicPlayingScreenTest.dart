@@ -12,9 +12,17 @@ class MusicPlayerScreenTest extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mediaPlayerModel = Provider.of<MusicPlayerState>(context);
-    context.watch<MusicPlayerState>().audioPlayer.onDurationChanged.listen((value) => mediaPlayerModel.onDurationChanged(value));
-    context.watch<MusicPlayerState>().audioPlayer.onPositionChanged.listen((value) => mediaPlayerModel.onPositionChanged(value));
-
+    final songListModel = Provider.of<SongListState>(context);
+    context
+        .watch<MusicPlayerState>()
+        .audioPlayer
+        .onDurationChanged
+        .listen((value) => mediaPlayerModel.onDurationChanged(value));
+    context
+        .watch<MusicPlayerState>()
+        .audioPlayer
+        .onPositionChanged
+        .listen((value) => mediaPlayerModel.onPositionChanged(value));
 
     return Scaffold(
       appBar: AppBar(
@@ -27,7 +35,7 @@ class MusicPlayerScreenTest extends StatelessWidget {
         fit: StackFit.expand,
         children: [
           Image.network(
-            '${context.watch<MusicPlayerState>().songListState.mediasList[mediaPlayerModel.songListState.currentMedia].imageUrl}',
+            '${context.watch<SongListState>().mediasList[songListModel.currentSongIndex].imageUrl}',
             fit: BoxFit.cover,
           ),
           const _BackgroundFilter(),
@@ -41,7 +49,7 @@ class MusicPlayerScreenTest extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '${context.watch<MusicPlayerState>().songListState.mediasList[mediaPlayerModel.songListState.currentMedia].title}',
+                  '${context.watch<SongListState>().mediasList[songListModel.currentSongIndex].title}',
                   style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -49,7 +57,7 @@ class MusicPlayerScreenTest extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  '${context.watch<MusicPlayerState>().songListState.mediasList[mediaPlayerModel.songListState.currentMedia].categoryName}',
+                  '${context.watch<SongListState>().mediasList[songListModel.currentSongIndex].categoryName}',
                   maxLines: 2,
                   style: Theme.of(context)
                       .textTheme
@@ -81,11 +89,12 @@ class MusicPlayerScreenTest extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        context.watch<MusicPlayerState>().formatTime(mediaPlayerModel.currentPosition),
+                        context
+                            .watch<MusicPlayerState>()
+                            .formatTime(mediaPlayerModel.currentPosition),
                       ),
                       Text(
                         context.watch<MusicPlayerState>().formatedDuration(),
-
                       ),
                     ],
                   ),
@@ -96,7 +105,21 @@ class MusicPlayerScreenTest extends StatelessWidget {
                   children: [
                     IconButton(
                       onPressed: () {
-                        mediaPlayerModel.playPreviousMedia();
+                        songListModel.playPreviousMedia(
+                            currentIndex:
+                                context.read<SongListState>().currentSongIndex);
+                        // songListModel.updateSongIndex(
+                        //     currentIndex:
+                        //         context.read<SongListState>().currentSongIndex);
+
+                        mediaPlayerModel.playPreviousMedia(
+                            mediasList: songListModel.mediasList,
+                            currentIndex:
+                                context.read<SongListState>().currentSongIndex);
+                        print(
+                            'current index is ${context.read<SongListState>().currentSongIndex}');
+
+                        //Figure Out which Index to Follow the one in the UI lost or the One in API
                       }, // Implement Previous Song functionality
                       icon: const Icon(
                         Icons.skip_previous,
@@ -113,18 +136,32 @@ class MusicPlayerScreenTest extends StatelessWidget {
                         size: 45,
                       ),
                       onPressed: () async {
-                        const PageNavController();
                         if (mediaPlayerModel.isPlaying) {
                           await mediaPlayerModel.audioPlayer.pause();
                         } else {
-                          mediaPlayerModel.setAudio();
+                          mediaPlayerModel.setAudio(
+                              mediasList: songListModel.mediasList,
+                              currentIndex: songListModel.currentSongIndex);
                         }
+
                         mediaPlayerModel.togglePlayback();
                       },
                     ),
+                    //Play Next
                     IconButton(
                       onPressed: () {
-                        mediaPlayerModel.playNextMedia();
+                        print(
+                            'current index is ${context.read<SongListState>().currentSongIndex}');
+                        //Figure Out which Index to Follow the one in the UI lost or the One in API
+                        // songListModel.currentSongIndex =
+                        //     mediaPlayerModel.currentIndex;
+                        songListModel.playNextMedia(
+                            currentIndex:
+                                context.read<SongListState>().currentSongIndex);
+                        mediaPlayerModel.playNextMedia(
+                            mediasList: songListModel.mediasList,
+                            currentIndex:
+                                context.read<SongListState>().currentSongIndex);
                       },
                       icon: const Icon(
                         Icons.skip_next,

@@ -10,9 +10,7 @@ import 'package:provider/provider.dart';
 import 'app-states/songListState.dart';
 
 void main() {
-  runApp(
-    MyApp()
-  );
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -25,18 +23,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider.value(value: songListState), // Use value constructor to provide existing instance
-        ChangeNotifierProvider(create: (_) => MusicPlayerState(songListState: songListState)),
+        ChangeNotifierProvider(create: (_) => SongListState()),
+        ChangeNotifierProvider(create: (_) => MusicPlayerState()),
       ],
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Music App',
         theme: ThemeData(
-            textTheme: Theme.of(context).textTheme.apply(
-                bodyColor: Colors.white,
-                displayColor: Colors.white
-            )
-        ),
+            textTheme: Theme.of(context)
+                .textTheme
+                .apply(bodyColor: Colors.white, displayColor: Colors.white)),
         home: const PageNavController(),
         getPages: [
           GetPage(name: '/', page: () => const HomeScreen()),
@@ -47,4 +43,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

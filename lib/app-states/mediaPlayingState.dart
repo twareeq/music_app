@@ -1,35 +1,25 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:music_app/app-states/songListState.dart';
 
 import '../mediasModule/models/mediadata_model.dart';
 
 class MusicPlayerState extends ChangeNotifier {
-  final SongListState songListState;
-
-  MusicPlayerState({required this.songListState}) {
-    songListState.addListener(_updateSongList);
-  }
-
   int currentIndex = 0;
+
   final audioPlayer = AudioPlayer();
+
   bool isPlaying = false; // Flag to track whether music is playing
+
   Duration _position = Duration.zero;
   Duration _duration = Duration.zero;
+
   Duration get currentPosition => _position;
   Duration get currentDuration => _duration;
-
-  void _updateSongList() {
-    // React to the child model's change.
-    // For example, by notifying listeners of this (parent) model.
-  }
-
-
 
   @override
   void dispose() {
     // Important: Remove the listener to prevent memory leaks
-    songListState.removeListener(_updateSongList);
+    // songListState.removeListener(_updateSongList);
     // audioPlayer.onPlayerStateChanged.listen(_onPlayerStateChanged).cancel();
     audioPlayer.onDurationChanged.listen(onDurationChanged).cancel();
     audioPlayer.onPositionChanged.listen(onPositionChanged).cancel();
@@ -55,14 +45,14 @@ class MusicPlayerState extends ChangeNotifier {
     return formatTime(_duration);
   }
 
-  Future setAudio() async {
+  Future setAudio(
+      {required List<MediaModel> mediasList, required int currentIndex}) async {
     audioPlayer.setReleaseMode(ReleaseMode.stop);
 
-    String url = '${songListState.mediasList[currentIndex].fileUrl}';
+    String url = '${mediasList[currentIndex].fileUrl}';
     await audioPlayer.play(UrlSource(url));
     notifyListeners();
   }
-
 
   String formatTime(Duration duration) {
     String twoDigits(int n) => n.toString().padLeft(2, '0');
@@ -77,22 +67,24 @@ class MusicPlayerState extends ChangeNotifier {
     ].join(':');
   }
 
-  void playNextMedia() {
-    if (currentIndex == songListState.mediasList.last) {
+  void playNextMedia(
+      {required List<MediaModel> mediasList, required int currentIndex}) {
+    if (currentIndex == mediasList.last) {
       print('There is nothing to play next');
-    } else if (currentIndex < songListState.mediasList.length - 1) {
+    } else if (currentIndex < mediasList.length - 1) {
       audioPlayer.stop();
-      currentIndex++;
-
-      setAudio();
+      // currentIndex++;
+      setAudio(mediasList: mediasList, currentIndex: currentIndex);
+      notifyListeners();
     }
   }
 
-  void playPreviousMedia() {
+  void playPreviousMedia(
+      {required List<MediaModel> mediasList, required int currentIndex}) {
     if (currentIndex > 0) {
-      currentIndex--;
-
-      setAudio();
+      // currentIndex--;
+      setAudio(mediasList: mediasList, currentIndex: currentIndex);
+      notifyListeners();
     }
   }
 }

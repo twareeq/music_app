@@ -4,7 +4,9 @@ import 'package:get/get.dart';
 import 'package:music_app/controller/libraryTabController.dart';
 import 'package:music_app/models/playlist_model.dart';
 import 'package:music_app/screens/discovered_media.dart';
+import 'package:provider/provider.dart';
 
+import '../app-states/songListState.dart';
 import '../mediasModule/models/mediadata_model.dart';
 import '../widgets/widgets.dart';
 
@@ -14,7 +16,6 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Playlist> playlists = Playlist.playlists;
-
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(

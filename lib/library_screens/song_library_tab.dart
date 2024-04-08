@@ -11,6 +11,7 @@ class SongLibraryTabScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mediaPlayerModel = Provider.of<MusicPlayerState>(context);
+    final songListModel = Provider.of<SongListState>(context);
 
     return Consumer<SongListState>(
       builder: (context, songListState, _) {
@@ -19,6 +20,7 @@ class SongLibraryTabScreen extends StatelessWidget {
           // Fetching songs when the mediasList is empty
           // This ensures that songs are fetched only once, not on every rebuild
           // If songs are already fetched, this won't do anything
+          print('Updating List!');
           songListState.gettingSongs();
 
           return const Center(
@@ -34,15 +36,14 @@ class SongLibraryTabScreen extends StatelessWidget {
                   itemCount: songListState.mediasList.length,
                   itemBuilder: (context, index) {
                     var songObj = songListState.mediasList[index];
-                    print(index); // Check if itemBuilder is called
-
                     return MediasListView(
                       mediaObj: songObj,
                       mediaList: songListState.mediasList,
                       audioPlayer: mediaPlayerModel.audioPlayer,
                       currentIndex: index,
                       onTapped: () {
-                        context.read<MusicPlayerState>().songListState.currentMedia = index;
+                        // songListModel.currentSongIndex = index;
+                        songListModel.updateSongIndex(currentIndex: index);
                         Get.to(() => MusicPlayerScreenTest());
                       },
                     );
