@@ -4,7 +4,10 @@ import 'package:music_app/library_screens/song_library_tab.dart';
 import 'package:music_app/library_screens/testmony_library_tab.dart';
 
 class LibraryBarController extends StatefulWidget {
-  const LibraryBarController({super.key});
+  final int initialTabIndex; // New required parameter
+
+  const LibraryBarController({Key? key, required this.initialTabIndex})
+      : super(key: key);
 
   @override
   State<LibraryBarController> createState() => _LibraryBarControllerState();
@@ -12,27 +15,30 @@ class LibraryBarController extends StatefulWidget {
 
 class _LibraryBarControllerState extends State<LibraryBarController>
     with TickerProviderStateMixin {
-  TabController? controllerBar;
+  late TabController controllerBar;
   int selectedTabBar = 0;
 
   @override
   void initState() {
     super.initState();
 
-    controllerBar = TabController(length: 3, vsync: this);
+    controllerBar = TabController(
+      length: 3,
+      vsync: this,
+      initialIndex: widget.initialTabIndex, // Set initial index
+    );
 
-    controllerBar?.addListener(() {
-      selectedTabBar = controllerBar?.index ?? 0;
-
-      setState(() {});
+    controllerBar.addListener(() {
+      setState(() {
+        selectedTabBar = controllerBar.index;
+      });
     });
   }
 
   @override
   void dispose() {
     super.dispose();
-
-    controllerBar?.dispose();
+    controllerBar.dispose();
   }
 
   @override
@@ -56,28 +62,32 @@ class _LibraryBarControllerState extends State<LibraryBarController>
               // ON TOP TABS
               SizedBox(
                 height: 100,
-                child: TabBar(controller: controllerBar, tabs: const [
-                  Tab(
-                    child: Text('Songs'),
-                  ),
-                  Tab(
-                    child: Text('Sermons'),
-                  ),
-                  Tab(
-                    child: Text('Testimonies'),
-                  ),
-                ]),
+                child: TabBar(
+                  controller: controllerBar,
+                  tabs: const [
+                    Tab(
+                      child: Text('Songs'),
+                    ),
+                    Tab(
+                      child: Text('Sermons'),
+                    ),
+                    Tab(
+                      child: Text('Testimonies'),
+                    ),
+                  ],
+                ),
               ),
               // INSIDE TABS
               Expanded(
-                  child: TabBarView(
-                controller: controllerBar,
-                children: [
-                  SongLibraryTabScreen(),
-                  SermonLibraryTab(),
-                  TestmonyLibraryTab(),
-                ],
-              ))
+                child: TabBarView(
+                  controller: controllerBar,
+                  children: [
+                    SongLibraryTabScreen(),
+                    SermonLibraryTab(),
+                    TestmonyLibraryTab(),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

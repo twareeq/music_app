@@ -46,7 +46,7 @@ class _PageNavControllerState extends State<PageNavController>
         controller: controller,
         children: const [
           HomeScreen(),
-          LibraryBarController(),
+          LibraryBarController(initialTabIndex: 0,),
           TheTable(),
         ],
       ),
@@ -154,7 +154,7 @@ class _PageNavControllerState extends State<PageNavController>
                 icon: Icon(Icons.library_music),
               ),
               Tab(
-                text: "table",
+                text: "song books",
                 icon: Icon(Icons.table_chart),
               ),
             ],

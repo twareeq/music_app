@@ -125,6 +125,7 @@ class _DiscoverMusic extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: TextField(
+        readOnly: true,
         cursorHeight: 15,
         style: const TextStyle(color: Colors.grey),
         onTap: () {
@@ -198,7 +199,7 @@ class MyGridView extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              Get.to(() => const LibraryBarController());
+              Get.to(() => const LibraryBarController(initialTabIndex: 0,));
             },
             child: Container(
               decoration: BoxDecoration(
@@ -215,7 +216,7 @@ class MyGridView extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              Get.to(const LibraryBarController());
+              Get.to(const LibraryBarController(initialTabIndex: 1,));
             },
             child: Container(
               decoration: BoxDecoration(
@@ -237,7 +238,7 @@ class MyGridView extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              Get.to(const LibraryBarController());
+              Get.to(const LibraryBarController(initialTabIndex: 2,));
             },
             child: Container(
               decoration: BoxDecoration(
