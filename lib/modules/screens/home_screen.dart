@@ -4,9 +4,7 @@ import 'package:get/get.dart';
 import 'package:music_app/controller/libraryTabController.dart';
 import 'package:music_app/models/local_app_models/playlist_model.dart';
 import 'package:music_app/widgets/discovered_media.dart';
-import 'package:provider/provider.dart';
 
-import '../../config/app-states/songListState.dart';
 import '../../models/api_models/mediadata_model.dart';
 import '../../widgets/widgets.dart';
 

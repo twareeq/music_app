@@ -1,11 +1,9 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:music_app/config/api_service.dart';
 import 'package:music_app/models/api_models/mediadata_model.dart';
-import 'package:music_app/modules/screens/media_playing_screen.dart';
 
-import '../../../widgets/medias_scroll_view.dart';
+import '../../widgets/medias_scroll_view.dart';
 
 class TestmonyLibraryTab extends StatefulWidget {
   const TestmonyLibraryTab({super.key});
@@ -59,12 +57,7 @@ class _TestmonyLibraryTabState extends State<TestmonyLibraryTab> {
                         mediaList: testmonyList,
                         audioPlayer: audioPlayer,
                         currentIndex: index,
-                        onTapped: () {
-                          Get.to(() => MediaPlayingScreen(
-                              mediasList: testmonyList,
-                              currentIndex: index,
-                              audioPlayer: audioPlayer));
-                        },
+                        onTapped: () {},
                       );
                     },
                   )

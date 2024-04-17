@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:music_app/config/app-states/songListState.dart';
+import 'package:music_app/utils/app-states/songListState.dart';
 import 'package:provider/provider.dart';
 
-import '../../../config/app-states/mediaPlayingState.dart';
-import '../musicPlayingScreenTest.dart';
-import '../../../widgets/medias_scroll_view.dart';
+import '../../utils/app-states/mediaPlayingState.dart';
+import '../screens/media_player_screen.dart';
+import '../../widgets/medias_scroll_view.dart';
 
 class SongLibraryTabScreen extends StatelessWidget {
   const SongLibraryTabScreen({super.key});

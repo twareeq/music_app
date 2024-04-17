@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:music_app/config/app-states/mediaPlayingState.dart';
+import 'package:music_app/utils/app-states/mediaPlayingState.dart';
 import 'package:music_app/controller/navBarController.dart';
 import 'package:music_app/modules/screens/home_screen.dart';
-import 'package:music_app/modules/screens/musicPlayingScreenTest.dart';
+import 'package:music_app/modules/screens/media_player_screen.dart';
 import 'package:music_app/modules/screens/playlist_screen.dart';
 import 'package:provider/provider.dart';
 
-import 'config/app-states/songListState.dart';
+import 'utils/app-states/songListState.dart';
 
 void main() {
   runApp(MyApp());

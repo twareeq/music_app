@@ -1,18 +1,17 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:music_app/config/app-states/songListState.dart';
+import 'package:music_app/utils/app-states/songListState.dart';
 import 'package:provider/provider.dart';
 
-import '../../config/app-states/mediaPlayingState.dart';
-import '../../controller/navBarController.dart';
+import '../../utils/app-states/mediaPlayingState.dart';
 
 class MusicPlayerScreenTest extends StatelessWidget {
-  MusicPlayerScreenTest({super.key});
+  const MusicPlayerScreenTest({super.key});
 
   @override
   Widget build(BuildContext context) {
     final mediaPlayerModel = Provider.of<MusicPlayerState>(context);
     final songListModel = Provider.of<SongListState>(context);
+
     context
         .watch<MusicPlayerState>()
         .audioPlayer

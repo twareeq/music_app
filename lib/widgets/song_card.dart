@@ -1,7 +1,5 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:music_app/modules/screens/media_playing_screen.dart';
 
 import '../models/api_models/mediadata_model.dart';
 
@@ -20,14 +18,7 @@ class SongCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        //Get.toNamed('/song', arguments: song);
-        Get.to(MediaPlayingScreen(
-          mediasList: [],
-          currentIndex: currentSong,
-          audioPlayer: audioPlayer,
-        ));
-      },
+      onTap: () {},
       child: Container(
         margin: const EdgeInsets.only(right: 10.0),
         child: Stack(
