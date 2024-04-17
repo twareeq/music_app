@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:music_app/mediasModule/models/mediadata_model.dart';
+import 'package:music_app/models/api_models/mediadata_model.dart';
 
 class APIHandler {
   static Future<List<MediaModel>> getAllMedias() async {

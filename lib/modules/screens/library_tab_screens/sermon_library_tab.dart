@@ -1,21 +1,21 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:music_app/apimodule/api_service.dart';
-import 'package:music_app/mediasModule/models/mediadata_model.dart';
-import 'package:music_app/screens/media_playing_screen.dart';
+import 'package:music_app/config/api_service.dart';
+import 'package:music_app/models/api_models/mediadata_model.dart';
+import 'package:music_app/modules/screens/media_playing_screen.dart';
 
-import '../widgets/medias_scroll_view.dart';
+import '../../../widgets/medias_scroll_view.dart';
 
-class TestmonyLibraryTab extends StatefulWidget {
-  const TestmonyLibraryTab({super.key});
+class SermonLibraryTab extends StatefulWidget {
+  const SermonLibraryTab({super.key});
 
   @override
-  State<TestmonyLibraryTab> createState() => _TestmonyLibraryTabState();
+  State<SermonLibraryTab> createState() => _SermonLibraryTabState();
 }
 
-class _TestmonyLibraryTabState extends State<TestmonyLibraryTab> {
-  List<MediaModel> testmonyList = [];
+class _SermonLibraryTabState extends State<SermonLibraryTab> {
+  List<MediaModel> sermonsList = [];
   final audioPlayer = AudioPlayer();
 
   @override
@@ -35,7 +35,7 @@ class _TestmonyLibraryTabState extends State<TestmonyLibraryTab> {
   }
 
   Future<void> gettingSermons() async {
-    testmonyList = await APIHandler.getMediasForTestmonies();
+    sermonsList = await APIHandler.getMediasForSermons();
   }
 
   @override
@@ -49,18 +49,21 @@ class _TestmonyLibraryTabState extends State<TestmonyLibraryTab> {
                 children: [
                   ListView.builder(
                     shrinkWrap: true,
-                    padding: const EdgeInsets.symmetric(horizontal: 2),
-                    itemCount: testmonyList.length,
+                    padding: EdgeInsets.symmetric(horizontal: 2),
+                    itemCount: sermonsList.length,
                     itemBuilder: (context, index) {
-                      var sermonObj = testmonyList[index];
+                      var sermonObj = sermonsList[index];
 
                       return MediasListView(
                         mediaObj: sermonObj,
-                        mediaList: testmonyList,
+                        mediaList: sermonsList,
                         audioPlayer: audioPlayer,
                         currentIndex: index,
                         onTapped: () {
-                          Get.to(() => MediaPlayingScreen(mediasList: testmonyList, currentIndex: index, audioPlayer: audioPlayer));
+                          Get.to(() => MediaPlayingScreen(
+                              mediasList: sermonsList,
+                              currentIndex: index,
+                              audioPlayer: audioPlayer));
                         },
                       );
                     },

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../models/playlist_model.dart';
+import '../models/local_app_models/playlist_model.dart';
 
 class PlaylistCard extends StatelessWidget {
   const PlaylistCard({
@@ -22,9 +22,8 @@ class PlaylistCard extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 10.0),
         padding: const EdgeInsets.symmetric(horizontal: 20),
         decoration: BoxDecoration(
-          color: Colors.deepPurple.shade800.withOpacity(0.6),
-          borderRadius: BorderRadius.circular(15.0)
-        ),
+            color: Colors.deepPurple.shade800.withOpacity(0.6),
+            borderRadius: BorderRadius.circular(15.0)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -37,7 +36,9 @@ class PlaylistCard extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            const SizedBox(width: 15.0,),
+            const SizedBox(
+              width: 15.0,
+            ),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -51,7 +52,8 @@ class PlaylistCard extends StatelessWidget {
                         ?.copyWith(fontWeight: FontWeight.bold),
                   ),
                   Text('${playlist.songs.length} songs',
-                      maxLines: 2, style: Theme.of(context).textTheme.bodySmall),
+                      maxLines: 2,
+                      style: Theme.of(context).textTheme.bodySmall),
                 ],
               ),
             ),

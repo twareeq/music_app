@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:music_app/app-states/songListState.dart';
+import 'package:music_app/config/app-states/songListState.dart';
 import 'package:provider/provider.dart';
 
-import '../app-states/mediaPlayingState.dart';
-import '../screens/musicPlayingScreenTest.dart';
-import '../widgets/medias_scroll_view.dart';
+import '../../../config/app-states/mediaPlayingState.dart';
+import '../musicPlayingScreenTest.dart';
+import '../../../widgets/medias_scroll_view.dart';
 
 class SongLibraryTabScreen extends StatelessWidget {
+  const SongLibraryTabScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final mediaPlayerModel = Provider.of<MusicPlayerState>(context);

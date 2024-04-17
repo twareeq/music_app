@@ -1,9 +1,9 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:music_app/screens/media_playing_screen.dart';
+import 'package:music_app/modules/screens/media_playing_screen.dart';
 
-import '../mediasModule/models/mediadata_model.dart';
+import '../models/api_models/mediadata_model.dart';
 
 class SongCard extends StatelessWidget {
   const SongCard({

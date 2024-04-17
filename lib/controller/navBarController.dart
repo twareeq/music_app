@@ -1,12 +1,12 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:music_app/controller/libraryTabController.dart';
-import 'package:music_app/screens/home_screen.dart';
-import 'package:music_app/screens/theTableScreen.dart';
+import 'package:music_app/modules/screens/home_screen.dart';
+import 'package:music_app/modules/screens/theTableScreen.dart';
 import 'package:provider/provider.dart';
 
-import '../app-states/mediaPlayingState.dart';
-import '../app-states/songListState.dart';
+import '../config/app-states/mediaPlayingState.dart';
+import '../config/app-states/songListState.dart';
 
 class PageNavController extends StatefulWidget {
   const PageNavController({Key? key}) : super(key: key);
@@ -46,7 +46,9 @@ class _PageNavControllerState extends State<PageNavController>
         controller: controller,
         children: const [
           HomeScreen(),
-          LibraryBarController(initialTabIndex: 0,),
+          LibraryBarController(
+            initialTabIndex: 0,
+          ),
           TheTable(),
         ],
       ),

@@ -1,6 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:music_app/mediasModule/models/mediadata_model.dart';
+import 'package:music_app/models/api_models/mediadata_model.dart';
 
 class Testings extends StatefulWidget {
   MediaModel medias;

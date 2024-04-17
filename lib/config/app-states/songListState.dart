@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../apimodule/api_service.dart';
-import '../mediasModule/models/mediadata_model.dart';
+import '../api_service.dart';
+import '../../models/api_models/mediadata_model.dart';
 
 class SongListState extends ChangeNotifier {
   //State of the songs in the database

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:music_app/controller/navBarController.dart';
-import '../mediasModule/models/mediadata_model.dart';
+import '../../models/api_models/mediadata_model.dart';
 
 class MediaPlayingScreen extends StatefulWidget {
   List<MediaModel> mediasList;
@@ -33,7 +33,9 @@ class _MediaPlayingScreenState extends State<MediaPlayingScreen> {
 
   @override
   void dispose() {
-    widget.audioPlayer.onPlayerStateChanged.listen(_onPlayerStateChanged).cancel();
+    widget.audioPlayer.onPlayerStateChanged
+        .listen(_onPlayerStateChanged)
+        .cancel();
     widget.audioPlayer.onDurationChanged.listen(_onDurationChanged).cancel();
     widget.audioPlayer.onPositionChanged.listen(_onPositionChanged).cancel();
     super.dispose();
@@ -65,7 +67,6 @@ class _MediaPlayingScreenState extends State<MediaPlayingScreen> {
   }
 
   void _playNextMedia() {
-
     if (widget.currentIndex == widget.mediasList.last) {
       print('There is nothing to play next');
     } else if (widget.currentIndex < widget.mediasList.length - 1) {
@@ -98,7 +99,6 @@ class _MediaPlayingScreenState extends State<MediaPlayingScreen> {
       seconds,
     ].join(':');
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -242,8 +242,6 @@ class _MediaPlayingScreenState extends State<MediaPlayingScreen> {
     );
   }
 }
-
-
 
 class _BackgroundFilter extends StatelessWidget {
   const _BackgroundFilter({

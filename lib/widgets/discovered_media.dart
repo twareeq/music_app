@@ -1,11 +1,11 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:music_app/apimodule/api_service.dart';
-import 'package:music_app/screens/media_playing_screen.dart';
+import 'package:music_app/config/api_service.dart';
+import 'package:music_app/modules/screens/media_playing_screen.dart';
 import 'package:music_app/widgets/medias_scroll_view.dart';
 
-import '../mediasModule/models/mediadata_model.dart';
+import '../models/api_models/mediadata_model.dart';
 
 class DiscoveredMedia extends StatefulWidget {
   const DiscoveredMedia({super.key});
@@ -15,7 +15,6 @@ class DiscoveredMedia extends StatefulWidget {
 }
 
 class _DiscoveredMediaState extends State<DiscoveredMedia> {
-
   List<MediaModel> allMedia = []; // Store all media fetched from API
   List<MediaModel> filteredMedia = []; // Store filtered media based on search
   final audioPlayer = AudioPlayer();
@@ -31,7 +30,8 @@ class _DiscoveredMediaState extends State<DiscoveredMedia> {
 
   Future<void> fetchMedia() async {
     // Fetch media data from API
-    List<MediaModel> mediaData = await APIHandler.getAllMedias(); // Example API call
+    List<MediaModel> mediaData =
+        await APIHandler.getAllMedias(); // Example API call
 
     setState(() {
       allMedia = mediaData;
@@ -99,14 +99,20 @@ class _DiscoveredMediaState extends State<DiscoveredMedia> {
           child: ListView.builder(
             itemCount: filteredMedia.length,
             itemBuilder: (context, index) {
-              return MediasListView(mediaObj: filteredMedia[index], mediaList: filteredMedia, audioPlayer: audioPlayer, currentIndex: index, onTapped: (){
-                Get.to(() => MediaPlayingScreen(mediasList: filteredMedia, currentIndex: index, audioPlayer: audioPlayer));
-              });
+              return MediasListView(
+                  mediaObj: filteredMedia[index],
+                  mediaList: filteredMedia,
+                  audioPlayer: audioPlayer,
+                  currentIndex: index,
+                  onTapped: () {
+                    Get.to(() => MediaPlayingScreen(
+                        mediasList: filteredMedia,
+                        currentIndex: index,
+                        audioPlayer: audioPlayer));
+                  });
             },
           ),
         ),
-
-
       ),
     );
   }

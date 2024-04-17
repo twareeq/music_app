@@ -2,13 +2,13 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:music_app/controller/libraryTabController.dart';
-import 'package:music_app/models/playlist_model.dart';
-import 'package:music_app/screens/discovered_media.dart';
+import 'package:music_app/models/local_app_models/playlist_model.dart';
+import 'package:music_app/widgets/discovered_media.dart';
 import 'package:provider/provider.dart';
 
-import '../app-states/songListState.dart';
-import '../mediasModule/models/mediadata_model.dart';
-import '../widgets/widgets.dart';
+import '../../config/app-states/songListState.dart';
+import '../../models/api_models/mediadata_model.dart';
+import '../../widgets/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -199,7 +199,9 @@ class MyGridView extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              Get.to(() => const LibraryBarController(initialTabIndex: 0,));
+              Get.to(() => const LibraryBarController(
+                    initialTabIndex: 0,
+                  ));
             },
             child: Container(
               decoration: BoxDecoration(
@@ -216,7 +218,9 @@ class MyGridView extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              Get.to(const LibraryBarController(initialTabIndex: 1,));
+              Get.to(const LibraryBarController(
+                initialTabIndex: 1,
+              ));
             },
             child: Container(
               decoration: BoxDecoration(
@@ -238,7 +242,9 @@ class MyGridView extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              Get.to(const LibraryBarController(initialTabIndex: 2,));
+              Get.to(const LibraryBarController(
+                initialTabIndex: 2,
+              ));
             },
             child: Container(
               decoration: BoxDecoration(

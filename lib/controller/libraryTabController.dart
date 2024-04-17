@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:music_app/library_screens/sermon_library_tab.dart';
-import 'package:music_app/library_screens/song_library_tab.dart';
-import 'package:music_app/library_screens/testmony_library_tab.dart';
+import 'package:music_app/modules/screens/library_tab_screens/sermon_library_tab.dart';
+import 'package:music_app/modules/screens/library_tab_screens/song_library_tab.dart';
+import 'package:music_app/modules/screens/library_tab_screens/testmony_library_tab.dart';
 
 class LibraryBarController extends StatefulWidget {
   final int initialTabIndex; // New required parameter

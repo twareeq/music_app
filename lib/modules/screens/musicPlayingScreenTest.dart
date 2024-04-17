@@ -1,10 +1,10 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:music_app/app-states/songListState.dart';
+import 'package:music_app/config/app-states/songListState.dart';
 import 'package:provider/provider.dart';
 
-import '../app-states/mediaPlayingState.dart';
-import '../controller/navBarController.dart';
+import '../../config/app-states/mediaPlayingState.dart';
+import '../../controller/navBarController.dart';
 
 class MusicPlayerScreenTest extends StatelessWidget {
   MusicPlayerScreenTest({super.key});

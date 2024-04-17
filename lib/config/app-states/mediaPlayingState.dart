@@ -1,7 +1,7 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
-import '../mediasModule/models/mediadata_model.dart';
+import '../../models/api_models/mediadata_model.dart';
 
 class MusicPlayerState extends ChangeNotifier {
   int currentIndex = 0;
