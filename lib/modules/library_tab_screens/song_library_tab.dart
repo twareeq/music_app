@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:music_app/utils/app-states/songListState.dart';
+import 'package:music_app/utils/providers/song_list_state.dart';
 import 'package:provider/provider.dart';
 
-import '../../utils/app-states/mediaPlayingState.dart';
+import '../../utils/providers/media_playing_state.dart';
 import '../screens/media_player_screen.dart';
 import '../../widgets/medias_scroll_view.dart';
 
@@ -46,7 +46,7 @@ class SongLibraryTabScreen extends StatelessWidget {
                       onTapped: () {
                         // songListModel.currentSongIndex = index;
                         songListModel.updateSongIndex(currentIndex: index);
-                        Get.to(() => MusicPlayerScreenTest());
+                        Get.to(() => const MusicPlayerScreenTest());
                       },
                     );
                   },

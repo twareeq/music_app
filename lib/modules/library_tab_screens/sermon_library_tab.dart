@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
-import '../../utils/app-states/mediaPlayingState.dart';
-import '../../utils/app-states/songListState.dart';
+import '../../utils/providers/media_playing_state.dart';
+import '../../utils/providers/song_list_state.dart';
 import '../../widgets/medias_scroll_view.dart';
 import '../screens/media_player_screen.dart';
 

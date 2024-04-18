@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:music_app/utils/app-states/songListState.dart';
+import 'package:music_app/utils/providers/song_list_state.dart';
 import 'package:provider/provider.dart';
 
-import '../../utils/app-states/mediaPlayingState.dart';
+import '../../utils/providers/media_playing_state.dart';
 
 class MusicPlayerScreenTest extends StatelessWidget {
   const MusicPlayerScreenTest({super.key});

@@ -5,8 +5,8 @@ import 'package:music_app/modules/screens/home_screen.dart';
 import 'package:music_app/modules/screens/theTableScreen.dart';
 import 'package:provider/provider.dart';
 
-import '../utils/app-states/mediaPlayingState.dart';
-import '../utils/app-states/songListState.dart';
+import '../utils/providers/media_playing_state.dart';
+import '../utils/providers/song_list_state.dart';
 
 class PageNavController extends StatefulWidget {
   const PageNavController({Key? key}) : super(key: key);
