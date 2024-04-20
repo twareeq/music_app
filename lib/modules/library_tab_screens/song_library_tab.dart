@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../../utils/providers/media_playing_state.dart';
 import '../screens/media_player_screen.dart';
-import '../../widgets/medias_scroll_view.dart';
+import '../../widgets/medias_list_view.dart';
 
 class SongLibraryTabScreen extends StatelessWidget {
   const SongLibraryTabScreen({super.key});

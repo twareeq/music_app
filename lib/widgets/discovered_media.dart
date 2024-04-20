@@ -1,7 +1,7 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:music_app/config/api_service.dart';
-import 'package:music_app/widgets/medias_scroll_view.dart';
+import 'package:music_app/widgets/medias_list_view.dart';
 
 import '../models/api_models/mediadata_model.dart';
 

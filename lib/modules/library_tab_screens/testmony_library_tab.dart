@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:music_app/config/api_service.dart';
 import 'package:music_app/models/api_models/mediadata_model.dart';
 
-import '../../widgets/medias_scroll_view.dart';
+import '../../widgets/medias_list_view.dart';
 
 class TestmonyLibraryTab extends StatefulWidget {
   const TestmonyLibraryTab({super.key});

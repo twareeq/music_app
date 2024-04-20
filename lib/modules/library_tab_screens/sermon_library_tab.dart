@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../utils/providers/media_playing_state.dart';
 import '../../utils/providers/song_list_state.dart';
-import '../../widgets/medias_scroll_view.dart';
+import '../../widgets/medias_list_view.dart';
 import '../screens/media_player_screen.dart';
 
 class SermonLibraryTab extends StatelessWidget {

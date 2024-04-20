@@ -34,7 +34,11 @@ class MusicPlayerScreenTest extends StatelessWidget {
         fit: StackFit.expand,
         children: [
           Image.network(
-            '${context.watch<SongListState>().mediasList[songListModel.currentSongIndex].imageUrl}',
+            context
+                .watch<SongListState>()
+                .mediasList[songListModel.currentSongIndex]
+                .imageUrl
+                .toString(),
             fit: BoxFit.cover,
           ),
           const _BackgroundFilter(),

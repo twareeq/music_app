@@ -36,7 +36,6 @@ class MyApp extends StatelessWidget {
         home: const PageNavController(),
         getPages: [
           GetPage(name: '/', page: () => const HomeScreen()),
-          GetPage(name: '/playerPage', page: () => MusicPlayerScreenTest()),
           GetPage(name: '/playlist', page: () => const PlaylistScreen()),
         ],
       ),
