@@ -5,14 +5,9 @@ import 'package:provider/provider.dart';
 
 import '../../utils/providers/media_playing_state.dart';
 
-// ignore: must_be_immutable
-class MediaPlayerScreen extends StatelessWidget {
+class MusicPlayerScreenTest extends StatelessWidget {
   List<MediaModel> myList = [];
-  final dynamic currentSong;
-  final dynamic listModel;
-
-  MediaPlayerScreen(
-      {super.key, required this.myList, this.currentSong, this.listModel});
+  MusicPlayerScreenTest({super.key, required this.myList});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +36,11 @@ class MediaPlayerScreen extends StatelessWidget {
         fit: StackFit.expand,
         children: [
           Image.network(
-            currentSong.imageUrl.toString(),
+            context
+                .watch<SongListState>()
+                .mediasList[songListModel.currentSongIndex]
+                .imageUrl
+                .toString(),
             fit: BoxFit.cover,
           ),
           const _BackgroundFilter(),
@@ -55,7 +54,7 @@ class MediaPlayerScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '${currentSong.title}',
+                  '${context.watch<SongListState>().mediasList[songListModel.currentSongIndex].title}',
                   style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -63,7 +62,7 @@ class MediaPlayerScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  '${currentSong.categoryName}',
+                  '${context.watch<SongListState>().mediasList[songListModel.currentSongIndex].categoryName}',
                   maxLines: 2,
                   style: Theme.of(context)
                       .textTheme
@@ -133,6 +132,8 @@ class MediaPlayerScreen extends StatelessWidget {
                         size: 45,
                       ),
                     ),
+
+                    // Playing Button
                     IconButton(
                       icon: Icon(
                         mediaPlayerModel.isPlaying
@@ -145,9 +146,13 @@ class MediaPlayerScreen extends StatelessWidget {
                         if (mediaPlayerModel.isPlaying) {
                           await mediaPlayerModel.audioPlayer.pause();
                         } else {
-                          mediaPlayerModel.setAudio(
-                              mediasList: listModel,
-                              currentIndex: songListModel.currentSongIndex);
+                          mediaPlayerModel.setAudioById(
+                              mediasList: songListModel.allMedias,
+                              songId: songListModel
+                                  .allMedias[context
+                                      .read<SongListState>()
+                                      .currentSongIndex]
+                                  .id);
                         }
 
                         mediaPlayerModel.togglePlayback();
@@ -155,6 +160,11 @@ class MediaPlayerScreen extends StatelessWidget {
                     ),
                     //Play Next
                     IconButton(
+                      icon: const Icon(
+                        Icons.skip_next,
+                        color: Colors.white,
+                        size: 45,
+                      ),
                       onPressed: () {
                         print(
                             'current index is ${context.read<SongListState>().currentSongIndex}');
@@ -169,11 +179,6 @@ class MediaPlayerScreen extends StatelessWidget {
                             currentIndex:
                                 context.read<SongListState>().currentSongIndex);
                       },
-                      icon: const Icon(
-                        Icons.skip_next,
-                        color: Colors.white,
-                        size: 45,
-                      ),
                     ),
                   ],
                 ),

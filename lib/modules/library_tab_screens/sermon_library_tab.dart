@@ -29,9 +29,6 @@ class SermonLibraryTab extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         } else {
-          dynamic dynamicModel = context
-              .watch<SongListState>()
-              .sermonsList[songListModel.currentSongIndex];
           return SingleChildScrollView(
             child: Column(
               children: [
@@ -48,14 +45,9 @@ class SermonLibraryTab extends StatelessWidget {
                       currentIndex: index,
                       onTapped: () {
                         // songListModel.currentSongIndex = index;
-                        songListModel.updateSongIndex(currentIndex: index);
-                        songListModel.updateDynamicListModel(
-                            dynamicList: dynamicModel);
-
-                        Get.to(() => MediaPlayerScreen(
+                        // songListModel.updateSongIndex(currentIndex: index);
+                        Get.to(() => MusicPlayerScreenTest(
                               myList: songListModel.sermonsList,
-                              listModel: songListModel.sermonsList,
-                              currentSong: dynamicModel,
                             ));
                       },
                     );

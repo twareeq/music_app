@@ -1,5 +1,5 @@
 class MediaModel {
-  int? id;
+  late int id;
   String? title;
   String? imageUrl;
   String? fileUrl;
@@ -10,7 +10,7 @@ class MediaModel {
   String? updatedAt;
 
   MediaModel(
-      {this.id,
+      {required this.id,
       this.title,
       this.imageUrl,
       this.fileUrl,

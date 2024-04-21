@@ -45,6 +45,16 @@ class MusicPlayerState extends ChangeNotifier {
     return formatTime(_duration);
   }
 
+  Future setAudioById(
+      {required List<MediaModel> mediasList, required int songId}) async {
+    audioPlayer.setReleaseMode(ReleaseMode.stop);
+
+    var song = mediasList.firstWhere((song) => song.id == songId);
+    String url = '${song.fileUrl}';
+    await audioPlayer.play(UrlSource(url));
+    notifyListeners();
+  }
+
   Future setAudio(
       {required List<MediaModel> mediasList, required int currentIndex}) async {
     audioPlayer.setReleaseMode(ReleaseMode.stop);

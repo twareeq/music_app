@@ -23,6 +23,20 @@ class APIHandler {
     return _fetchMedias(url);
   }
 
+  // static Future<MediaModel> getMedia({required int id}) async {
+  //   const response = 'http://10.0.2.2:3000/play/$id';
+
+  //   // {
+  //   //   id: "",
+  //   //   url: "",
+  //   //   title: ""
+  //   // }
+
+  //   const media = MediaModel(id: response["id"], title:response["title"],);
+
+  //   return media;
+  // }
+
   static Future<List<MediaModel>> _fetchMedias(String url) async {
     final uri = Uri.parse(url);
     final response = await http.get(uri);
