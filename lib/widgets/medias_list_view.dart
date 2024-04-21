@@ -1,9 +1,9 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import '../models/api_models/mediadata_model.dart';
 
+// ignore: must_be_immutable
 class MediasListView extends StatelessWidget {
   MediaModel mediaObj;
   List<MediaModel> mediaList;

@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:music_app/models/api_models/mediadata_model.dart';
 import 'package:music_app/utils/providers/song_list_state.dart';
 import 'package:provider/provider.dart';
 
 import '../../utils/providers/media_playing_state.dart';
 
-class MusicPlayerScreenTest extends StatelessWidget {
-  const MusicPlayerScreenTest({super.key});
+// ignore: must_be_immutable
+class MediaPlayerScreen extends StatelessWidget {
+  List<MediaModel> myList = [];
+  final dynamic currentSong;
+  final dynamic listModel;
+
+  MediaPlayerScreen(
+      {super.key, required this.myList, this.currentSong, this.listModel});
 
   @override
   Widget build(BuildContext context) {
@@ -34,11 +41,7 @@ class MusicPlayerScreenTest extends StatelessWidget {
         fit: StackFit.expand,
         children: [
           Image.network(
-            context
-                .watch<SongListState>()
-                .mediasList[songListModel.currentSongIndex]
-                .imageUrl
-                .toString(),
+            currentSong.imageUrl.toString(),
             fit: BoxFit.cover,
           ),
           const _BackgroundFilter(),
@@ -52,7 +55,7 @@ class MusicPlayerScreenTest extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '${context.watch<SongListState>().mediasList[songListModel.currentSongIndex].title}',
+                  '${currentSong.title}',
                   style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -60,7 +63,7 @@ class MusicPlayerScreenTest extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  '${context.watch<SongListState>().mediasList[songListModel.currentSongIndex].categoryName}',
+                  '${currentSong.categoryName}',
                   maxLines: 2,
                   style: Theme.of(context)
                       .textTheme
@@ -143,7 +146,7 @@ class MusicPlayerScreenTest extends StatelessWidget {
                           await mediaPlayerModel.audioPlayer.pause();
                         } else {
                           mediaPlayerModel.setAudio(
-                              mediasList: songListModel.mediasList,
+                              mediasList: listModel,
                               currentIndex: songListModel.currentSongIndex);
                         }
 

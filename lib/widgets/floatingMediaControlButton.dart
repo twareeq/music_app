@@ -9,6 +9,7 @@ class MediaControlButton extends StatelessWidget {
   final Function() onNextPressed;
 
   const MediaControlButton({
+    super.key,
     required this.imageUrl,
     required this.title,
     required this.isPlaying,
@@ -20,7 +21,7 @@ class MediaControlButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(8),
+      padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
@@ -39,7 +40,7 @@ class MediaControlButton extends StatelessWidget {
             backgroundImage: NetworkImage(imageUrl),
             radius: 20,
           ),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -61,7 +62,7 @@ class MediaControlButton extends StatelessWidget {
           ),
           IconButton(
             onPressed: onNextPressed,
-            icon: Icon(Icons.skip_next),
+            icon: const Icon(Icons.skip_next),
           ),
         ],
       ),

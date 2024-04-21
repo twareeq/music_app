@@ -29,6 +29,9 @@ class SongLibraryTabScreen extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         } else {
+          dynamic dynamicModel = context
+              .watch<SongListState>()
+              .mediasList[songListModel.currentSongIndex];
           return SingleChildScrollView(
             child: Column(
               children: [
@@ -46,7 +49,13 @@ class SongLibraryTabScreen extends StatelessWidget {
                       onTapped: () {
                         // songListModel.currentSongIndex = index;
                         songListModel.updateSongIndex(currentIndex: index);
-                        Get.to(() => const MusicPlayerScreenTest());
+                        songListModel.updateDynamicListModel(
+                            dynamicList: dynamicModel);
+                        Get.to(() => MediaPlayerScreen(
+                              listModel: songListModel.mediasList,
+                              myList: songListModel.mediasList,
+                              currentSong: dynamicModel,
+                            ));
                       },
                     );
                   },

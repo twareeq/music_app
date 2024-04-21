@@ -14,9 +14,16 @@ class SongListState extends ChangeNotifier {
   List<MediaModel> get sermonsList => _sermonsList;
 
   int _currentSongIndex = 0;
+  dynamic _dynamicListModel;
 
   //Current Song We Are Playing
   int get currentSongIndex => _currentSongIndex; // Listers
+  dynamic get dynamicListModel => _dynamicListModel;
+
+  void updateDynamicListModel({required dynamic dynamicList}) {
+    _dynamicListModel = dynamicList;
+    notifyListeners();
+  }
 
   void updateSongIndex({required int currentIndex}) {
     _currentSongIndex = currentIndex;
