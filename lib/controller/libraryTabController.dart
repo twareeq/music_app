@@ -81,7 +81,7 @@ class _LibraryBarControllerState extends State<LibraryBarController>
               Expanded(
                 child: TabBarView(
                   controller: controllerBar,
-                  children: [
+                  children: const [
                     SongLibraryTabScreen(),
                     SermonLibraryTab(),
                     TestmonyLibraryTab(),
