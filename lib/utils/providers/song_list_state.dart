@@ -8,22 +8,24 @@ class SongListState extends ChangeNotifier {
   List<MediaModel> _allMedias = [];
   List<MediaModel> _mediasList = []; //Listernets
   List<MediaModel> _sermonsList = []; //Listernets
+  late MediaModel _currentSong; //Listernets
 
   List<MediaModel> get allMedias => _allMedias;
   List<MediaModel> get mediasList => _mediasList;
   List<MediaModel> get sermonsList => _sermonsList;
+  MediaModel get currentSong => _currentSong;
 
   int _currentSongIndex = 0;
-  dynamic _dynamicListModel;
+  // dynamic _dynamicListModel;
 
   //Current Song We Are Playing
   int get currentSongIndex => _currentSongIndex; // Listers
-  dynamic get dynamicListModel => _dynamicListModel;
+  // dynamic get dynamicListModel => _dynamicListModel;
 
-  void updateDynamicListModel({required dynamic dynamicList}) {
-    _dynamicListModel = dynamicList;
-    notifyListeners();
-  }
+  // void updateDynamicListModel({required dynamic dynamicList}) {
+  //   _dynamicListModel = dynamicList;
+  //   notifyListeners();
+  // }
 
   void updateSongIndex({required int currentIndex}) {
     _currentSongIndex = currentIndex;
@@ -70,7 +72,8 @@ class SongListState extends ChangeNotifier {
     try {
       if (_mediasList.isEmpty) {
         // Fetch songs from the API
-        List<MediaModel> songs = await APIHandler.getMediasForSongs();
+        List<MediaModel> songs =
+            await APIHandler.getMediasByCategory(categoryId: 1);
         // Update the mediasList with the fetched songs
         _mediasList = songs;
         // Notify listeners that the state has changed
@@ -84,12 +87,27 @@ class SongListState extends ChangeNotifier {
     }
   }
 
+  //Get Songs from the database
+  Future<void> gettingSongFile({required int id}) async {
+    try {
+      // Fetch songs from the API
+      MediaModel song = await APIHandler.getSongFile(songId: id);
+      // Update the mediasList with the fetched songs
+      _currentSong = song;
+      notifyListeners(); //
+    } catch (e) {
+      // Handle any errors that occur during fetching
+      print("Error fetching songs: $e");
+    }
+  }
+
   //Get Sermons from the database
   Future<void> gettingSermons() async {
     try {
       if (_sermonsList.isEmpty) {
         // Fetch sermons from the API
-        List<MediaModel> sermons = await APIHandler.getMediasForSermons();
+        List<MediaModel> sermons =
+            await APIHandler.getMediasByCategory(categoryId: 2);
         // Update the mediasList with the fetched sermons
         _sermonsList = sermons;
         // Notify listeners that the state has changed

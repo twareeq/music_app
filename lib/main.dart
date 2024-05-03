@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:music_app/utils/providers/media_playing_state.dart';
@@ -21,6 +22,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    // final mediaPlayerModel = Provider.of<MusicPlayerState>(context);
+
+    // mediaPlayerModel.audioPlayer.setReleaseMode(ReleaseMode.release);
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => SongListState()),

@@ -1,30 +1,31 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:music_app/models/api_models/mediadata_model.dart';
+import 'package:music_app/repository/MediaRepository.dart';
 
 class APIHandler {
+  final mediaRepository = MediaRepository();
+
   static Future<List<MediaModel>> getAllMedias() async {
-    const url = 'http://10.0.2.2:3000/media';
+    const url = 'http://localhost:3000/media';
     return _fetchMedias(url);
   }
 
-  static Future<List<MediaModel>> getMediasForSongs() async {
-    const url = 'http://10.0.2.2:3000/media/category/1';
+  static Future<List<MediaModel>> getMediasByCategory(
+      {required int categoryId}) async {
+    final url = 'http://localhost:3000/media/category/$categoryId';
+
     return _fetchMedias(url);
   }
 
-  static Future<List<MediaModel>> getMediasForSermons() async {
-    const url = 'http://10.0.2.2:3000/media/category/2';
-    return _fetchMedias(url);
-  }
+  static Future<MediaModel> getSongFile({required int songId}) async {
+    final song = await MediaRepository.getSongFile(songId: songId);
 
-  static Future<List<MediaModel>> getMediasForTestmonies() async {
-    const url = 'http://10.0.2.2:3000/media/category/3';
-    return _fetchMedias(url);
+    return song;
   }
 
   // static Future<MediaModel> getMedia({required int id}) async {
-  //   const response = 'http://10.0.2.2:3000/play/$id';
+  //   var response = "http://10.0.2.2:3000/play/$id";
 
   //   // {
   //   //   id: "",
@@ -32,7 +33,8 @@ class APIHandler {
   //   //   title: ""
   //   // }
 
-  //   const media = MediaModel(id: response["id"], title:response["title"],);
+  //   // const media = MediaModel(id: response["id"], title:response["title"],);
+  //   var media = MediaModel(id: response["id"]);
 
   //   return media;
   // }

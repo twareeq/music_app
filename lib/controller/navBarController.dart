@@ -97,8 +97,8 @@ class _PageNavControllerState extends State<PageNavController>
                         await mediaPlayerModel.audioPlayer.pause();
                       } else {
                         mediaPlayerModel.setAudio(
-                            mediasList: songListModel.mediasList,
-                            currentIndex: songListModel.currentSongIndex);
+                            songId: songListModel
+                                .mediasList[songListModel.currentSongIndex].id);
                       }
                       mediaPlayerModel.togglePlayback();
                     },

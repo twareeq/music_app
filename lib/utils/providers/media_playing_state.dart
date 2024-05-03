@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
+import '../../config/api_service.dart';
 import '../../models/api_models/mediadata_model.dart';
 
 class MusicPlayerState extends ChangeNotifier {
@@ -16,6 +19,8 @@ class MusicPlayerState extends ChangeNotifier {
   Duration get currentPosition => _position;
   Duration get currentDuration => _duration;
 
+  APIHandler _apiHandler = APIHandler();
+
   @override
   void dispose() {
     // Important: Remove the listener to prevent memory leaks
@@ -28,6 +33,7 @@ class MusicPlayerState extends ChangeNotifier {
 
   void togglePlayback() {
     isPlaying = !isPlaying;
+    audioPlayer.setReleaseMode(ReleaseMode.stop);
     notifyListeners();
   }
 
@@ -47,19 +53,29 @@ class MusicPlayerState extends ChangeNotifier {
 
   Future setAudioById(
       {required List<MediaModel> mediasList, required int songId}) async {
-    audioPlayer.setReleaseMode(ReleaseMode.stop);
-
+    togglePlayback();
+    audioPlayer.setReleaseMode(ReleaseMode.release);
     var song = mediasList.firstWhere((song) => song.id == songId);
     String url = '${song.fileUrl}';
     await audioPlayer.play(UrlSource(url));
     notifyListeners();
   }
 
-  Future setAudio(
-      {required List<MediaModel> mediasList, required int currentIndex}) async {
-    audioPlayer.setReleaseMode(ReleaseMode.stop);
+  // Future playSongById(
+  //     {required List<MediaModel> mediasList, required int songId}) async {
+  //   audioPlayer.setReleaseMode(ReleaseMode.stop);
 
-    String url = '${mediasList[currentIndex].fileUrl}';
+  //   var songUrl = await APIHandler.getSongFile(songId: songId);
+  //   await audioPlayer.play(UrlSource(songUrl as String));
+  //   notifyListeners();
+  // }
+
+  Future setAudio({required int songId}) async {
+    audioPlayer.setReleaseMode(ReleaseMode.stop);
+    audioPlayer.release();
+    var song = await APIHandler.getSongFile(songId: songId);
+    audioPlayer.state == PlayerState.playing ? isPlaying : !isPlaying;
+    String url = '${song.fileUrl}';
     await audioPlayer.play(UrlSource(url));
     notifyListeners();
   }
@@ -84,7 +100,7 @@ class MusicPlayerState extends ChangeNotifier {
     } else if (currentIndex < mediasList.length - 1) {
       audioPlayer.stop();
       // currentIndex++;
-      setAudio(mediasList: mediasList, currentIndex: currentIndex);
+      setAudio(songId: currentIndex);
       notifyListeners();
     }
   }
@@ -93,7 +109,7 @@ class MusicPlayerState extends ChangeNotifier {
       {required List<MediaModel> mediasList, required int currentIndex}) {
     if (currentIndex > 0) {
       // currentIndex--;
-      setAudio(mediasList: mediasList, currentIndex: currentIndex);
+      setAudio(songId: currentIndex);
       notifyListeners();
     }
   }

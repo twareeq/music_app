@@ -15,6 +15,17 @@ class SongLibraryTabScreen extends StatelessWidget {
     final mediaPlayerModel = Provider.of<MusicPlayerState>(context);
     final songListModel = Provider.of<SongListState>(context);
 
+    context
+        .watch<MusicPlayerState>()
+        .audioPlayer
+        .onDurationChanged
+        .listen((value) => mediaPlayerModel.onDurationChanged(value));
+    context
+        .watch<MusicPlayerState>()
+        .audioPlayer
+        .onPositionChanged
+        .listen((value) => mediaPlayerModel.onPositionChanged(value));
+
     return Consumer<SongListState>(
       builder: (context, songListState, _) {
         // Check if mediasList is empty or data is not fetched yet
@@ -43,9 +54,17 @@ class SongLibraryTabScreen extends StatelessWidget {
                       mediaList: songListState.mediasList,
                       audioPlayer: mediaPlayerModel.audioPlayer,
                       currentIndex: index,
-                      onTapped: () {
+                      onTapped: () async {
                         // songListModel.currentSongIndex = index;
                         songListModel.updateSongIndex(currentIndex: index);
+                        if (mediaPlayerModel.isPlaying) {
+                          await mediaPlayerModel.audioPlayer.pause();
+                        } else {
+                          await mediaPlayerModel.setAudioById(
+                            mediasList: songListModel.mediasList,
+                            songId: songListModel.mediasList[index].id,
+                          );
+                        }
                         Get.to(() => MusicPlayerScreenTest(
                               myList: songListModel.mediasList,
                             ));

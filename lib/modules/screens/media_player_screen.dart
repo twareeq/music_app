@@ -146,13 +146,17 @@ class MusicPlayerScreenTest extends StatelessWidget {
                         if (mediaPlayerModel.isPlaying) {
                           await mediaPlayerModel.audioPlayer.pause();
                         } else {
-                          mediaPlayerModel.setAudioById(
-                              mediasList: songListModel.allMedias,
-                              songId: songListModel
-                                  .allMedias[context
-                                      .read<SongListState>()
-                                      .currentSongIndex]
-                                  .id);
+                          // await mediaPlayerModel.setAudio(
+                          //   mediasList: songListModel.mediasList,
+                          //   currentIndex:
+                          //       context.watch<SongListState>().currentSongIndex,
+                          // );
+
+                          await mediaPlayerModel.setAudioById(
+                            mediasList: songListModel.mediasList,
+                            songId: songListModel
+                                .mediasList[songListModel.currentSongIndex].id,
+                          );
                         }
 
                         mediaPlayerModel.togglePlayback();

@@ -33,7 +33,7 @@ class _TestmonyLibraryTabState extends State<TestmonyLibraryTab> {
   }
 
   Future<void> gettingSermons() async {
-    testmonyList = await APIHandler.getMediasForTestmonies();
+    testmonyList = await APIHandler.getMediasByCategory(categoryId: 3);
   }
 
   @override
