@@ -26,6 +26,26 @@ class TheTable extends StatelessWidget {
               textAlign: TextAlign.left,
             ),
           ),
+          body: SingleChildScrollView(
+            child: ListView.builder(
+              shrinkWrap: true,
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              itemCount: 4,
+              itemBuilder: (context, index) {
+                return Container(
+                  decoration: BoxDecoration(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('SongName'),
+                      Text('sub'),
+                    
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
         ));
   }
 }

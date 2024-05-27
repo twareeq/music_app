@@ -2,7 +2,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:music_app/controller/libraryTabController.dart';
 import 'package:music_app/modules/screens/home_screen.dart';
-import 'package:music_app/modules/screens/theTableScreen.dart';
+import 'package:music_app/modules/screens/song_books_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../utils/providers/media_playing_state.dart';
